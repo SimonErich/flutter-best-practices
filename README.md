@@ -1,3 +1,5 @@
+<img src="https://miro.medium.com/max/904/1*sjnhqXDMd7vLKp2-GQM5NQ.jpeg" width="100%" />
+
 # flutter-best-practices talk
 
 Slides for the flutter vienna talk about best practices in flutter and dart.
@@ -11,6 +13,7 @@ https://simonerich.github.io/flutter-best-practices/
 ## Blog article and details
 
 You can find more details here:
+
 https://simonauer.medium.com/best-practices-basic-tips-on-writing-good-flutter-code-dd05d56bf27c
 
 
