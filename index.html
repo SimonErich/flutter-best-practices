@@ -1,0 +1,602 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/marqant.css" id="theme">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+
+		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				
+				
+
+
+
+
+				
+				
+				
+				
+				
+				
+				<section data-background-image="/dist/theme/marqant/cover.jpg" data-background-size="cover" data-background-repeat="repeat" data-background-position="top right">
+					<h2>
+						Best practices in <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Google-flutter-logo.png/799px-Google-flutter-logo.png" height="70px" style="margin:0;padding:0" />
+					</h2>
+					<div style="opacity:0.7">
+						How we structure and maintain clean and<br />extendible code in growing apps
+					</div>
+					
+					
+					<div style="font-size:0.5em;margin-top:4em;opacity:0.3;"> by Simon Auer</div>
+				</section>
+
+
+
+
+
+
+
+
+
+
+
+
+				
+				
+				
+				
+				
+				
+				<section data-background-image="/dist/theme/marqant/header.jpg" data-background-size="100px" data-background-repeat="no-repeat" data-background-position="top right">
+					<img src="https://avatars3.githubusercontent.com/u/6395538?s=400&u=baeeb55c9a196e65d9671d55c192d04637a81be7&v=4" style="border-radius:50%" width="100px" />
+			
+					<h2 class="fragment">
+						Simon Auer
+					</h2>
+
+					<div style="font-size:0.8em">
+						<ul>
+							<li class="fragment">CEO @ du.digital <span style="font-size:0.4em;">(soon marqant.digital)</span></li>
+							<li class="fragment">React (Native), Angular, Vue and Flutter</li>
+							<li class="fragment">15 years of Development for the Web</li>
+							<li class="fragment">6 years of App Development</li>
+							<li class="fragment" style="margin-top:30px">
+								<a href="https://www.linkedin.com/in/simon-auer/" target="_blank"><i class="fab fa-linkedin-in" style="font-size:0.8em;" class="fragment">/simon-auer</i></a>&nbsp;&nbsp;
+								<a href="https://github.com/SimonErich" target="_blank"><i class="fab fa-github" style="font-size:0.8em;" class="fragment">/SimonErich</i></a>&nbsp;&nbsp;
+								<a href="https://simonauer.medium.com/" target="_blank"><i class="fab fa-medium" style="font-size:0.8em;" class="fragment">/simonauer</i></a>&nbsp;&nbsp;
+							</li>
+						</ul>
+					</div>
+					
+					
+				</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				
+				
+				
+				
+				
+				<section data-background-image="/dist/theme/marqant/header.jpg" data-background-size="100px" data-background-repeat="no-repeat" data-background-position="top right">
+					<h1>What are<br />best practices?</h1>
+
+					<ul>
+						<li class="fragment">informal rules</li>
+						<li class="fragment">improve qualitiy of code</li>
+						<li class="fragment">use as guideline</li>
+						<li class="fragment">adapt to situation/context</li>
+					</ul>
+				</section>
+
+
+
+
+
+
+				
+				
+				
+				
+				
+				<section data-background-image="/dist/theme/marqant/header.jpg" data-background-size="100px" data-background-repeat="no-repeat" data-background-position="top right">
+					<h1>Follow Dart/Flutter <br />conventions</h1>
+
+					<ul>
+						<li class="fragment">Conventions = Mutually agreed on</li>
+						<li class="fragment">Code Style, Naming, Structure, ...</li>
+						<li class="fragment">Defined by Dart Core Team</li>
+						<li class="fragment"><a href="https://dart.dev/guides/language/effective-dart/style" target="_blank"><i class="fas fa-link"></i> https://dart.dev/guides/language/effective-dart/style</a></li>
+					</ul>
+				</section>
+
+
+
+
+
+
+
+
+				
+				
+				
+				<section data-background-image="/dist/theme/marqant/header.jpg" data-background-size="100px" data-background-repeat="no-repeat" data-background-position="top right">
+					<h1>Convention:<br /> file and folder names</h1>
+					<p class="fragment">should always be <b class="primary1">snake_case_using_underscores</b></p>
+
+					<img src="/dist/content/1_file_and_foldernames.png" style="max-width:100%;" class="fragment" />
+					<img src="/dist/content/1_file_and_foldernames_dont.png" style="max-width:100%;" class="fragment" />
+
+				</section>
+
+
+
+
+
+
+
+
+
+
+
+				
+				
+				
+				<section data-background-image="/dist/theme/marqant/header.jpg" data-background-size="100px" data-background-repeat="no-repeat" data-background-position="top right">
+					<h1>Convention:<br />classes, type definitions, enums, extensions</h1>
+					<p class="fragment">should always be <b class="primary1">UpperCamelCase</b></p>
+
+
+					<pre class="fragment"><code data-line-numbers="2-4|6-7|9-10|12-13">
+							<script type="text/template">
+# classes
+class MyAwesomeWidget { ... }
+class HelperClass { ... }
+
+# Type definitions
+typedef Predicate<T> = bool Function(T value);
+
+# Enums
+enum Status { open, pending, done }
+
+# Extension
+extension NumberParsing<T> on String<T>
+							</script>
+						</code></pre>
+
+				</section>
+
+
+
+
+
+
+
+				
+				
+				
+				<section data-background-image="/dist/theme/marqant/header.jpg" data-background-size="100px" data-background-repeat="no-repeat" data-background-position="top right">
+					<h1>Convention:<br />variables, constants, class members, parameters</h1>
+					<p class="fragment">should always be <b class="primary1">lowerCamelCase</b></p>
+
+					<pre class="fragment"><code data-line-numbers="2-5|6-7|9-12">
+							<script type="text/template">
+# variables
+String myString = 'What a wonderful day';
+int myNumber = 3;
+
+# constants
+const String myString = 'I stay this way';
+
+# parameters
+void doMagic(firstParameter = 3) {
+   ...
+}
+							</script>
+						</code></pre>
+
+				</section>
+
+
+
+
+
+
+
+
+				
+				
+				
+				<section data-background-image="/dist/theme/marqant/header.jpg" data-background-size="100px" data-background-repeat="no-repeat" data-background-position="top right">
+					<h1>Convention:<br />Private variables and methods</h1>
+					<p class="fragment">should always be <b class="primary1">prefixed</b> with <span class="boxed"><b>_</b></span> (Undescore)</p>
+
+					<pre class="fragment"><code data-line-numbers="3|8">
+							<script type="text/template">
+# just a private method name with "_"
+void _privateMethod() {
+...
+}
+# a private class property
+class Song {
+	final Boolean _isNice = true;
+}
+							</script>
+						</code></pre>
+
+				</section>
+
+
+
+
+
+
+				
+				
+				
+				<section data-background-image="/dist/theme/marqant/header.jpg" data-background-size="100px" data-background-repeat="no-repeat" data-background-position="top right">
+					<h1>dartfmt <br /> use and get used to it!</h1>
+
+					<ul>
+						<li class="fragment">Formats your code automatically</li>
+						<li class="fragment">It will make your life a lot easier</li>
+						<li class="fragment">Enable <span class="boxed">editor.formatOnSave</span></li>
+						<li class="fragment">Always add a comma <span class="boxed">,</span> at end of line</li>
+					</ul>
+
+					<pre class="fragment"><code data-line-numbers="6">
+							<script type="text/template">
+Widget build(BuildContext context) {
+	return Center(
+		child: Container(
+			child: Text('This is an example'),
+			constraints: BoxConstraints(maxHeight: 200),
+		),
+	);
+}
+							</script>
+						</code></pre>
+
+					<pre class="fragment"><code data-line-numbers="6">
+							<script type="text/template">
+Widget build(BuildContext context) {
+	return Center(
+		child: Container(
+			child: Text('This is an example'),
+			constraints: BoxConstraints(maxHeight: 200)));
+}
+							</script>
+						</code></pre>
+
+				</section>
+
+
+
+
+
+
+
+
+
+
+
+				<section data-background-image="/dist/theme/marqant/header.jpg" data-background-size="100px" data-background-repeat="no-repeat" data-background-position="top right">
+					<h1>Use relative paths<br />for files in lib/nearby directory</h1>
+
+					<div class="fragment">
+						<b>Don't:</b><br />
+						<pre><code data-line-numbers=""><script type="text/template">import 'package:myproject/my_widget.dart';</script></code></pre>
+					</div>
+
+					<div class="fragment">
+						<b>Do:</b><br />
+						<pre><code data-line-numbers=""><script type="text/template">import '../my_widget.dart';</script></code></pre>
+					</div>
+				</section>
+
+
+
+
+
+
+
+
+
+
+
+				<section data-background-image="/dist/theme/marqant/header.jpg" data-background-size="100px" data-background-repeat="no-repeat" data-background-position="top right">
+					<h1>ALWAYS<br />specify types</h1>
+
+					<div class="fragment" style="position:relative;">
+						<b>Don't be that guy/girl:</b><br />
+						<pre><code data-line-numbers=""><script type="text/template">
+const primaryColor = Color(0xff00ffff);
+var iWillChange = 'rectangle';
+final theSong = Song();
+						</script></code></pre>
+						<img class="fragment" src="https://media1.tenor.com/images/78673923f29f465bc4fd56fc3126b06f/tenor.gif?itemid=5094641" style="position:absolute;right:0%;top:-10%;width:150px;height:auto;" />
+					</div>
+
+					
+
+					<div class="fragment">
+						<b>Do that:</b><br />
+						<pre><code data-line-numbers=""><script type="text/template">
+const Color primaryColor = Color(0xff00ffff);
+var String iWillChange = 'rectangle';
+final Song theSong = Song();
+						</script></code></pre>
+					</div>
+				</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+				<section data-background-image="/dist/theme/marqant/header.jpg" data-background-size="100px" data-background-repeat="no-repeat" data-background-position="top right">
+					<h1>Check instead of<br />“force casting” types</h1>
+
+					<div class="fragment" style="position:relative;">
+						<b>Don't:</b><br />
+						<pre><code data-line-numbers=""><script type="text/template">
+// cast the variable as a specific type
+(melody as Song).title = 'Santa Baby';
+						</script></code></pre>
+					</div>
+
+					
+
+					<div class="fragment">
+						<b>Do:</b><br />
+						<pre><code data-line-numbers=""><script type="text/template">
+// check if the type is a certain type
+if (melody is Song)
+  song.title = 'Stille Nacht';
+						</script></code></pre>
+					</div>
+				</section>
+
+
+
+
+
+
+
+
+
+
+
+				<section data-background-image="/dist/theme/marqant/header.jpg" data-background-size="100px" data-background-repeat="no-repeat" data-background-position="top right">
+					<h1>Use <span class="boxed">const</span><br />for static Widgets</h1>
+
+					<div class="fragment" style="position:relative;">
+						<pre><code data-line-numbers="3|14"><script type="text/template">
+Class CustomIcon extends StatelessWidget {
+  const CustomIcon(@required this.name);
+
+  final String name;
+  ...
+}
+
+Class MyWidget extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return View(
+      child: const CustomIcon('arrow_back'); 
+    );
+  }
+}
+						</script></code></pre>
+					</div>
+				</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+				<section data-background-image="/dist/theme/marqant/header.jpg" data-background-size="100px" data-background-repeat="no-repeat" data-background-position="top right">
+					<h1>Use darts<br />null safety features</h1>
+
+					<div class="fragment" style="position:relative;">
+						<p>Mark Type as nullable:</p>
+						<pre><code data-line-numbers="2|4"><script type="text/template">
+Painter theBestPainter = Painter('Bob Ross');
+
+Painter? theBestPainter = null;
+						</script></code></pre>
+					</div>
+
+					<div class="fragment" style="position:relative;">
+						<p>Exception case:</p>
+						<pre><code data-line-numbers="3|6"><script type="text/template">
+# we init a painter, that is null
+Painter? theBestPainter = null;
+
+# then we try to call a method, that we expect from this painter, but if it's null, there is no method -> Exception!!
+theBestPainter.paintSomething();
+						</script></code></pre>
+					</div>
+				</section>
+
+
+
+
+
+
+
+
+
+
+
+
+				<section data-background-image="/dist/theme/marqant/header.jpg" data-background-size="100px" data-background-repeat="no-repeat" data-background-position="top right">
+					<h1>Use flutters<br />conditional chaining</h1>
+
+					<div class="fragment" style="position:relative;">
+						<p>Make sure object exists:</p>
+						<pre><code data-line-numbers="2|4"><script type="text/template">
+theBestPainter?.paintSomething();
+						
+						</script></code></pre>
+					</div>
+
+					<div class="fragment" style="position:relative;">
+						<p>Even works for nested objects:</p>
+						<pre><code data-line-numbers="3|6"><script type="text/template">
+theBestPainter?.youngestDaughter?.oldestSon?.paintSomething();
+
+						</script></code></pre>
+					</div>
+				</section>
+
+
+
+
+
+
+
+
+
+
+
+				<section data-background-image="/dist/theme/marqant/header.jpg" data-background-size="100px" data-background-repeat="no-repeat" data-background-position="top right">
+					<h1>MVP Tip!<br />Use strict analysis rules</h1>
+
+					<p class="fragment">Copy the following <span class="boxed">analysis_options.yaml</span>(flutter internal strict linting)<br />file and put it in your root directory:</p>
+
+
+					<p class="fragment"><i class="fas fa-link"></i> <a href="/dist/analysis_options.yaml" target="_blank">Strict analysis_options.yaml</a></p>
+
+					<img class="fragment" src="/dist/content/2_strict_linting_screen.png" width="60%" />
+				</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				<section data-background-image="/dist/theme/marqant/header.jpg" data-background-size="100px" data-background-repeat="no-repeat" data-background-position="top right">
+					<h1>Write<br />Tests</h1>
+
+					<p class="fragment"><img src="https://media1.tenor.com/images/ffa90d31ddd0349d09dd324ad1f5b9c2/tenor.gif?itemid=9788829" style="max-width:80%" /></p>
+
+					<p class="fragment">It's actually quite nice to write tests for flutter. ;)</p>
+				</section>
+
+
+
+
+
+
+
+				<section data-background-image="/dist/theme/marqant/header.jpg" data-background-size="100px" data-background-repeat="no-repeat" data-background-position="top right">
+					<h1>Have fun coding</h1>
+
+					<p>Enjoy the work with flutter.<br /></p>
+					<p><img src="https://media1.tenor.com/images/743df11bb5b286f4229652f2c15c2487/tenor.gif?itemid=3564151" style="max-width:80%" /></p>
+				</section>
+
+
+
+
+
+
+
+
+
+				
+				
+				<section data-background-image="/dist/theme/marqant/header.jpg" data-background-size="100px" data-background-repeat="no-repeat" data-background-position="top right">
+					<h1>Thank<br />you</h1>
+
+					<img src="https://avatars3.githubusercontent.com/u/6395538?s=400&u=baeeb55c9a196e65d9671d55c192d04637a81be7&v=4" style="border-radius:50%" width="100px" />
+			
+					<h2>
+						Simon Auer
+					</h2>
+
+					<div style="font-size:0.8em">
+						<a href="https://www.linkedin.com/in/simon-auer/" target="_blank"><i class="fab fa-linkedin-in" style="font-size:0.8em;">/simon-auer</i></a><br />
+						<a href="https://github.com/SimonErich" target="_blank"><i class="fab fa-github" style="font-size:0.8em;">/SimonErich</i></a><br />
+						<a href="https://simonauer.medium.com/" target="_blank"><i class="fab fa-medium" style="font-size:0.8em;">/simonauer</i></a><br />
+					</div>
+					
+					
+				</section>
+
+
+
+
+
+
+
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
